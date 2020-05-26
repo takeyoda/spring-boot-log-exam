@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <property resource="application.yml" />
+  <contextName>${HOSTNAME}</contextName>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- https://github.com/logstash/logstash-logback-encoder#composite-encoderlayout -->
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <providers>
+        <timestamp>
+          <fieldName>timestamp</fieldName>
+          <pattern>yyyy-MM-dd'T'HH:mm:ss.SSSZZ</pattern>
+          <timeZone>UTC</timeZone>
+        </timestamp>
+        <contextName />
+        <loggerName>
+          <fieldName>logger</fieldName>
+        </loggerName>
+        <logLevel>
+          <fieldName>level</fieldName>
+        </logLevel>
+        <threadName>
+          <fieldName>thread</fieldName>
+        </threadName>
+        <mdc />
+        <message>
+          <fieldName>message</fieldName>
+        </message>
+        <arguments>
+          <includeNonStructuredArguments>false</includeNonStructuredArguments>
+        </arguments>
+        <stackTrace>
+          <fieldName>stack</fieldName>
+        </stackTrace>
+      </providers>
+    </encoder>
+  </appender>
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
